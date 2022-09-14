@@ -1,6 +1,4 @@
-This repository is a collection of my practises and assignments for Pyhton, Flask and API and others during my trainee period in Fusemachines Nepal.
-
-Additionaly, this repo contains solution to codewars problems to secure 5 Kyu rank.
+This branch has Python advanced topics covered.
 
 Create and activate a virtual environment:
 
