@@ -12,21 +12,24 @@ Create and activate a virtual environment:
 
 Use `pip install -r requirements.txt` to install the required packages.
 
-Run `python assignment.py` to start the server. Then use check.ipynb or use postman to test the API.
+For Question 1-5 Run `python assignment.py` to start the server.
+For question 6 Run `python external_assignment.py` to start the server.
+
+Then use `check.ipynb` or use postman to test the API.
 
 # Postman outputs:
 
 ### 1. Create an API to return body ,username based on comments id.
 
-![Question 1 Check](assest/Q1.jpg)
+<!-- ![Question 1 Check](assest/Q1.jpg) -->
 
 ### 2. Create an API to update the body of the comment into uppercase and return comment id, body and status in json format based on comment id provided.
 
-![Question 2 Check](assest/Q2.jpg)
+<!-- ![Question 2 Check](assest/Q2.jpg) -->
 
 ### 3. Create an API that delete record and return response message based on comment id.
 
-![Question 3 Check](assest/Q3.jpg)
+<!-- ![Question 3 Check](assest/Q3.jpg) -->
 
 ### 4. Create an API to insert new record and display response message along with data that has been inserted.
 

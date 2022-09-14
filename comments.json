@@ -28,15 +28,6 @@
             }
         },
         {
-            "id": 5,
-            "body": "NICE IDEA!",
-            "postId": 62,
-            "user": {
-                "id": 70,
-                "username": "cmasurel1x"
-            }
-        },
-        {
             "id": 6,
             "body": "You are showing excellent understanding!",
             "postId": 19,
@@ -82,24 +73,6 @@
             }
         },
         {
-            "id": 11,
-            "body": "It was a pleasure to grade this!",
-            "postId": 2,
-            "user": {
-                "id": 68,
-                "username": "rstrettle1v"
-            }
-        },
-        {
-            "id": 12,
-            "body": "Keep up the incredible work!",
-            "postId": 50,
-            "user": {
-                "id": 77,
-                "username": "rkingswood24"
-            }
-        },
-        {
             "id": 13,
             "body": "My goodness, how impressive!",
             "postId": 37,
@@ -115,33 +88,6 @@
             "user": {
                 "id": 57,
                 "username": "bpickering1k"
-            }
-        },
-        {
-            "id": 15,
-            "body": "You\u2019ve shown so much growth!",
-            "postId": 44,
-            "user": {
-                "id": 76,
-                "username": "cgaber23"
-            }
-        },
-        {
-            "id": 16,
-            "body": "Interesting thoughts!",
-            "postId": 71,
-            "user": {
-                "id": 100,
-                "username": "pcumbes2r"
-            }
-        },
-        {
-            "id": 17,
-            "body": "I love your neat work!",
-            "postId": 68,
-            "user": {
-                "id": 37,
-                "username": "nwytchard10"
             }
         },
         {
@@ -286,6 +232,42 @@
             "user": {
                 "id": 1000,
                 "username": "Am I right "
+            }
+        },
+        {
+            "id": 47,
+            "body": "45 This is a new comment",
+            "post_id": 999,
+            "user": {
+                "id": 1000,
+                "username": "who are you"
+            }
+        },
+        {
+            "id": 246,
+            "body": "45 This is a new comment",
+            "post_id": 999,
+            "user": {
+                "id": 1000,
+                "username": "who are you"
+            }
+        },
+        {
+            "id": 50,
+            "body": "45 This is a new comment",
+            "post_id": 999,
+            "user": {
+                "id": 1000,
+                "username": "Am I Right?"
+            }
+        },
+        {
+            "id": 48,
+            "body": "This is a new comment",
+            "post_id": 999,
+            "user": {
+                "id": 1000,
+                "username": "Am I Right?"
             }
         }
     ],

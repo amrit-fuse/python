@@ -1,0 +1,49 @@
+{
+    "pagination": {
+        "total": 116843,
+        "limit": 5,
+        "offset": 0,
+        "total_pages": 23369,
+        "current_page": 1,
+        "next_url": "https://api.artic.edu/api/v1/artworks?page=2&fields=id%2Ctitle%2Cdate_display&limit=5"
+    },
+    "data": [
+        {
+            "id": 8961,
+            "title": "Head of Arthur Jerome Eddy",
+            "date_display": "1898"
+        },
+        {
+            "id": 18751,
+            "title": "Bust of Said Abdullah of the Darfour People",
+            "date_display": "1848"
+        },
+        {
+            "id": 18754,
+            "title": "Bust of a Woman",
+            "date_display": "1851"
+        },
+        {
+            "id": 29669,
+            "title": "Weary",
+            "date_display": "1863"
+        },
+        {
+            "id": 7,
+            "title": "Bond james Bond",
+            "date_display": "2020"
+        }
+    ],
+    "info": {
+        "license_text": "The data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
+        "license_links": [
+            "https://creativecommons.org/publicdomain/zero/1.0/",
+            "https://www.artic.edu/terms"
+        ],
+        "version": "1.5"
+    },
+    "config": {
+        "iiif_url": "https://www.artic.edu/iiif/2",
+        "website_url": "http://www.artic.edu"
+    }
+}

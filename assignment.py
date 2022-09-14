@@ -1,92 +1,175 @@
-# Q1 >> http://127.0.0.1:5000/comments/int:id
-# Q2 >> http://127.0.0.1:5000/comments/int:id
-# Q3 >> http://127.0.0.1:5000/comments/int:id
-# Q4 >> http://127.0.0.1:5000/comments/int:id/string:body/int:postId/int:u_id/string:username
+# Q1>> http://127.0.0.1:5000/comments?id=1
 
-# 123456
-# using flask_restful
-import json
 from flask import Flask, jsonify, request
-from flask_restful import Resource, Api
+import json
 
 app = Flask(__name__)
-api = Api(app)
+
+# 1. Create an API to return  body ,username based on comments id.
 
 
-class Comments(Resource):
-    # 1. Create an API to return  body ,username based on comments id.
-    def get(self, id):
-        with open('comments.json', 'r') as f:
-            data = json.load(f)
+@app.route('/comments', methods=['GET'])
+def get_comment():
+    print(request.url)
+    # exception handling
+    try:
+        id = int(request.args.get('id'))  # get id from url
+        if id < 1:
+            raise ValueError  # raise value error if id is less than 1
+    except ValueError:
+        return jsonify({'message': 'Invalid id! has to be an +ve integer'})
+    except Exception as e:  # handle other exceptions
+        return jsonify({'message': e.args})
+    else:  # if no exception
+        with open('comments.json', 'r') as f:  # open file in read mode
+            data = json.load(f)  # load json file   as dictionary
+            try:
+                # only select list with comments key from data dictionay
+                for i in data['comments']:
+                    if i['id'] == id:
+                        return jsonify({'body': i['body'], 'username': i['user']['username']})
+            except Exception as e:
+                return jsonify({'message': e.args})  # handle other exceptions
+            else:   # if no exception
+                return jsonify({'message': 'No comment found! with  id = {}'.format(id)})
+
+
+# 2. Create an API to update the body of the comment into uppercase and return comment id, body and status in json format based on  comment id provided.
+
+@app.route('/update', methods=['PUT'])
+def put_comment():
+    print(request.url)
+    # exception handling
+    try:
+        id = int(request.args.get('id'))  # get id from url
+        if id < 1:
+            raise ValueError  # raise value error if id is less than 1
+    except ValueError:
+        return jsonify({'message': 'Invalid id! has to be an +ve integer'})
+    except Exception as e:  # handle other exceptions
+        return jsonify({'message': e.args})
+    else:  # if no exception
+        with open('comments.json', 'r+') as f:  # open file in read and write mode
+            data = json.load(f)  # load json file   as dictionary
+            try:
+                # only select list with comments key from data dictionay
+                for i in data['comments']:
+                    if i['id'] == id:
+                        # update body to uppercase
+                        i['body'] = i['body'].upper()
+                        # set file pointer to 0 position in file to overwrite file content
+                        f.seek(0)
+                        # dump updated data to file
+                        json.dump(data, f, indent=4)
+                        f.truncate()  # truncate file means remove extra data from file after updating data
+                        return jsonify({'id': i['id'], 'body': i['body'], 'status': 'updated'})
+            except Exception as e:
+                return jsonify({'message': e.args})
+            else:
+                return jsonify({'message': 'No comment found! with  id = {}'.format(id)})
+
+
+# 3. Create an API that delete record and return response message based on comment id.
+
+
+@app.route('/delete', methods=['DELETE'])
+def delete_comment():
+    print(request.url)
+    # exception handling
+    try:
+        id = int(request.args.get('id'))  # get id from url
+        if id < 1:
+            raise ValueError  # raise value error if id is less than 1
+    except ValueError:
+        return jsonify({'message': 'Invalid id! has to be an +ve integer'})
+    except Exception as e:  # handle other exceptions
+        return jsonify({'message': e.args})
+    else:  # if no exception
+        with open('comments.json', 'r+') as f:  # open file in read and write mode
+            data = json.load(f)  # load json file   as dictionary
+            try:
+                # only select list with comments key from data dictionay
+                for i in data['comments']:
+                    if i['id'] == id:
+                        # remove comment from list
+                        data['comments'].remove(i)
+                        # set file pointer to 0 position in file to overwrite file content
+                        f.seek(0)
+                        # dump updated data to file
+                        json.dump(data, f, indent=4)
+                        f.truncate()  # truncate file means remove extra data from file after updating data
+                        return jsonify({'message': 'comment deleted! with id = {}'.format(id)})
+            except Exception as e:
+                return jsonify({'message': e.args})
+            else:
+                return jsonify({'message': 'No comment found! with  id = {}'.format(id)})
+
+
+# 4. Create an API to insert new record and display response message along with data that has been inserted.
+
+
+@app.route('/insert', methods=['POST'])
+def insert_comment():
+    print(request.url)
+    # exception handling
+    try:
+        id = int(request.args.get('id'))  # get id from url
+        body = request.args.get('body')
+        post_id = int(request.args.get('post_id'))
+        user_id = int(request.args.get('user_id'))
+        username = request.args.get('username')
+
+        if id < 1 or post_id < 1 or user_id < 1:
+            raise ValueError  # raise value error if id is less than 1
+    except ValueError:
+        return jsonify({'message': 'Invalid id! , has to be an +ve integer'})
+    # except Exception as e:  # handle other exceptions
+    #     return jsonify({'message': e.args})
+    else:  # if no exception
+        with open('comments.json', 'r+') as f:  # open file in read and write mode
+            data = json.load(f)  # load json file   as dictionary
+            try:
+                # only select list with comments key from data dictionay
+                for i in data['comments']:
+                    if i['id'] == id:
+                        return jsonify({'message': 'comment already exist! with id = {}'.format(id)})
+                # create new comment dictionary
+                new_comment = {'id': id, 'body': body, 'post_id': post_id, 'user': {
+                    'id': user_id, 'username': username}}
+                # append new comment to list
+                data['comments'].append(new_comment)
+                # set file pointer to 0 position in file to overwrite file content
+                f.seek(0)
+                # dump updated data to file
+                json.dump(data, f, indent=4)
+                f.truncate()  # truncate file means remove extra data from file after updating data
+                return jsonify({'message': 'comment inserted! with id = {}'.format(id)})
+            except Exception as e:
+                return jsonify({'message': e.args})
+
+
+# 5. Create an API that returns count of comments along with username and status in JSON format.
+@app.route('/count', methods=['GET'])
+def count_comment():
+    print(request.url)
+    with open('comments.json', 'r') as f:
+        data = json.load(f)
+        try:
+            # create new dictionary to store count of comments for each username and status
+            count = {}
             # only select list with comments key from data dictionay
             for i in data['comments']:
-                if i['id'] == id:
-                    return jsonify({'body': i['body'], 'username': i['user']['username']})
-            return jsonify({'message': 'No comment found!'})
+                # if username is not in count dictionary then add username as key and set count to 1
+                if i['user']['username'] not in count:
+                    count[i['user']['username']] = 1
+                else:
+                    # if username is already in count dictionary then increment count by 1
+                    count[i['user']['username']] += 1
 
-    # 2. Create an API to update the body of the comment into uppercase and return comment id, body and status in json format based on  comment id provided.
-    def put(self, id):  # edit comments.json
-        with open('comments.json', 'r+') as f:  # open file in read and write mode
-            data = json.load(f)  # load json file
-            for i in data['comments']:  # loop through comments list
-                if i['id'] == id:  # check if id is equal to id provided
-                    i['body'] = i['body'].upper()  # update body to uppercase
-                    f.seek(0)  # set file cursor to 0
-                    json.dump(data, f, indent=4)  # dump data to file
-                    f.truncate()  # truncate file
-                    # return id, body and status
-                    return jsonify({'id': i['id'], 'body': i['body'], 'status': 'updated'})
-            # return message if id not found
-            return jsonify({'message': 'No comment found!'})
-
-    # 3. Create an API that delete record and return response message based on comment id.
-    def delete(self, id):  # delete  a nested dict from comments.json
-        with open('comments.json', 'r+') as f:  # open file in read and write mode
-            data = json.load(f)  # load json file
-            for i in data['comments']:  # loop through comments list
-                if i['id'] == id:  # check if id is equal to id provided
-                    # remove only particular dictionary matching the id provided
-                    data['comments'].remove(i)
-                    f.seek(0)  # set file cursor to 0
-                    json.dump(data, f, indent=4)  # dump data to file
-                    f.truncate()  # truncate file means delete  extra data from file
-                    # return  message if id found and deleted successfully from file
-                    return jsonify({'message': 'Comment deleted!'})
-            # return message if id not found
-            return jsonify({'message': 'No comment found!'})
-
-    # 4. Create an API to insert new record and display response message along with data that has been inserted.
-
-    def post(self, id, body, postId, u_id, username):  # add new dict to comments.json
-        with open('comments.json', 'r+') as f:  # open file in read and write mode
-            data = json.load(f)  # load json file
-            for i in data['comments']:  # loop through comments list
-                if i['id'] == id:  # check if id is equal to id provided
-                    # return message if id already exist
-                    return jsonify({'message': 'Comment already exist!'})
-
-                # check if user id exist or not
-                if i['user']['id'] == u_id:
-                    # if user id exist then replace new uswername with old username existing in file
-                    username = i['user']['username']
-
-            # create new dictionary
-            new_dict = {'id': id, 'body': body,  'postId': postId, 'user': {
-                'id': u_id, 'username': username}}
-            # append new dictionary to comments list
-            data['comments'].append(new_dict)
-            f.seek(0)
-            json.dump(data, f, indent=4)  # dump data to file
-            f.truncate()  # truncate file means delete  extra data from file
-            # return message if id not found and new comment added successfully
-            return jsonify({'message': 'Comment added sucessfully '})
+            return jsonify(count)
+        except Exception as e:
+            return jsonify({'message': e.args})
 
 
-# multiple url pointing to same class
-# maps multiple url to same class
-api.add_resource(Comments, '/comments/<int:id>',
-                 '/comments/<int:id>/<string:body>/<int:postId>/<int:u_id>/<string:username>')
-
-# driver function
 if __name__ == '__main__':
     app.run(debug=True)
