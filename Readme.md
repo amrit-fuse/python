@@ -1,4 +1,4 @@
-To navigate Refer to Readme file at [**Master Branch**](https://github.com/amrit-fuse/python/tree/master)
+To Navigate Refer to Readme file at [**Master Branch**](https://github.com/amrit-fuse/python/tree/master)
 
 This branch has Python advanced topics covered like :
 - Files
