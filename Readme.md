@@ -1,3 +1,9 @@
+To Navigate Refer to Readme file at [Master Branch](https://github.com/amrit-fuse/python/tree/master)
+
+This branch has codes using both flask and flask_RESTful paackages and incomplete .
+
+_This Branch is incomplete , so please refer to  branch named [api_assign_flask_only](https://github.com/amrit-fuse/python/tree/api_assign_flask_only)_
+
 [Data source](https://dummyjson.com/comments)
 
 ---
@@ -12,7 +18,7 @@ Create and activate a virtual environment:
 
 Use `pip install -r requirements.txt` to install the required packages.
 
-Run `python assignment.py` to start the server. Then use check.ipynb or use postman to test the API.
+Run `python assignment.py` to start the server. Then use `check.ipynb` or use postman to test the API.
 
 # Postman outputs:
 
@@ -28,8 +34,3 @@ Run `python assignment.py` to start the server. Then use check.ipynb or use post
 
 ![Question 3 Check](assest/Q3.jpg)
 
-### 4. Create an API to insert new record and display response message along with data that has been inserted.
-
-### 5. Create an API that returns count of comments along with username and status in JSON format.
-
-### 6. Find any external API besides that given in the assignment. Retrieve the data from that api with the GET operation,clean the data and load it in your local as "example.json" file. Finally, perform all crud operations in that data.
