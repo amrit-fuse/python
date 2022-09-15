@@ -1,4 +1,6 @@
-This branch covers basic of API using flask and flask restful package in python and also covers basic of API testing using postman.
+To Navigate Refer to Readme file at [Master Branch](https://github.com/amrit-fuse/python/tree/master)
+
+This branch covers basic of API using flask and flask restful package in python 
 
 ---
 
