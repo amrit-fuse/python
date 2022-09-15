@@ -119,6 +119,10 @@ def post_art():
         with open('example.json', 'r+') as f:
             Art_dict = json.load(f)
             try:
+                # return if id already exists
+                for i in Art_dict['data']:
+                    if i['id'] == id:
+                        return jsonify({'message': 'Art with id = {} already exists!'.format(id)})
                 # create new list with id, title and date_display
                 new_art = {'id': id, 'title': title,
                            'date_display': date_display}
@@ -129,11 +133,9 @@ def post_art():
                 # write updated data to file
                 json.dump(Art_dict, f, indent=4)
                 f.truncate()  # truncate file to remove extra data
-                return jsonify({'id': id, 'title': title, 'date_diaplay': date_display})
+                return jsonify({'id': id, 'title': title, 'date_display': date_display})
             except Exception as e:
                 return jsonify({'message': e.args})
-            else:
-                return jsonify({'message': 'No art found! with  id = {}'.format(id)})
 
 
 if __name__ == '__main__':

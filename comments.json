@@ -19,12 +19,30 @@
             }
         },
         {
+            "id": 3,
+            "body": "You are an amazing writer!",
+            "postId": 61,
+            "user": {
+                "id": 29,
+                "username": "jissetts"
+            }
+        },
+        {
             "id": 4,
             "body": "Wow! You have improved so much!",
             "postId": 8,
             "user": {
                 "id": 19,
                 "username": "bleveragei"
+            }
+        },
+        {
+            "id": 5,
+            "body": "Nice idea!",
+            "postId": 62,
+            "user": {
+                "id": 70,
+                "username": "cmasurel1x"
             }
         },
         {
@@ -73,6 +91,24 @@
             }
         },
         {
+            "id": 11,
+            "body": "It was a pleasure to grade this!",
+            "postId": 2,
+            "user": {
+                "id": 68,
+                "username": "rstrettle1v"
+            }
+        },
+        {
+            "id": 12,
+            "body": "Keep up the incredible work!",
+            "postId": 50,
+            "user": {
+                "id": 77,
+                "username": "rkingswood24"
+            }
+        },
+        {
             "id": 13,
             "body": "My goodness, how impressive!",
             "postId": 37,
@@ -83,11 +119,20 @@
         },
         {
             "id": 14,
-            "body": "YOU\u2019RE SHOWING INVENTIVE IDEAS!",
+            "body": "You\u2019re showing inventive ideas!",
             "postId": 30,
             "user": {
                 "id": 57,
                 "username": "bpickering1k"
+            }
+        },
+        {
+            "id": 15,
+            "body": "You\u2019ve shown so much growth!",
+            "postId": 44,
+            "user": {
+                "id": 76,
+                "username": "cgaber23"
             }
         },
         {
@@ -208,53 +253,8 @@
             }
         },
         {
-            "id": 40,
-            "body": "This is a new comment",
-            "postId": 999,
-            "user": {
-                "id": 1000,
-                "username": "Am I right "
-            }
-        },
-        {
-            "id": 45,
-            "body": "45 This is a new comment",
-            "postId": 999,
-            "user": {
-                "id": 1000,
-                "username": "Am I right "
-            }
-        },
-        {
-            "id": 46,
-            "body": "45 This is a new comment",
-            "postId": 999,
-            "user": {
-                "id": 1000,
-                "username": "Am I right "
-            }
-        },
-        {
-            "id": 47,
-            "body": "45 This is a new comment",
-            "post_id": 999,
-            "user": {
-                "id": 1000,
-                "username": "who are you"
-            }
-        },
-        {
-            "id": 246,
-            "body": "45 This is a new comment",
-            "post_id": 999,
-            "user": {
-                "id": 1000,
-                "username": "who are you"
-            }
-        },
-        {
             "id": 50,
-            "body": "45 This is a new comment",
+            "body": "This is a new comment",
             "post_id": 999,
             "user": {
                 "id": 1000,
