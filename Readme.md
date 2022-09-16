@@ -19,6 +19,7 @@ Use `pip install -r requirements.txt` to install the required packages.
 | [API Basic](https://github.com/amrit-fuse/python/tree/Api_basic)                             | Cover basic API topics likle GET , POST, PUT, DELETE and Explored different API on internet with abd without authentication                                                                 |
 | [API Assignment ]()                                                                          | Attempted assignment using Flask and Flask_RESTFul , Got multiple issues so created new branch [API Assignment Flask only](https://github.com/amrit-fuse/python/tree/api_assign_flask_only) |
 | [API Assignment Flask only](https://github.com/amrit-fuse/python/tree/api_assign_flask_only) | Completed assignment using Flask only                                                                                                                                                       |
+|[ORM](https://github.com/amrit-fuse/python/tree/ORM)|Contains Datacamp Practise codes and Local database Practise code|
 
 ## Kaggle Python Certification
 
