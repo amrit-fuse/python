@@ -9,8 +9,7 @@ from sqlalchemy import func
 from datetime import datetime
 
 
-# create Database manually in MySQL Workbench
-
+# create Database  SChemea manually in MySQL Workbench
 dbuser, dbpass, dbhost, dbport, dbname = orm_dbsecrets.dbuser, orm_dbsecrets.dbpass, orm_dbsecrets.dbhost, orm_dbsecrets.dbport, orm_dbsecrets.dbname
 
 # engine = create_engine('DB_TYPE+DB_CONNECTOR://user:pass@host:port/DB_name')
@@ -25,8 +24,9 @@ Base = declarative_base()  # create a base class for our class definitions
 # create a session object to connect to the DB
 session = sessionmaker(bind=engine)()
 
-
 # Model Classes for the tables in the DB
+
+
 class Booking(Base):
     __tablename__ = 'booking'
     id = Column(Integer, primary_key=True)
@@ -125,20 +125,12 @@ def add_rooms():
     rooms = [
         Room(room_type=room_types[0]),
         Room(room_type=room_types[0]),
-        Room(room_type=room_types[0]),
-        Room(room_type=room_types[0]),
-        Room(room_type=room_types[1]),
-        Room(room_type=room_types[1]),
         Room(room_type=room_types[1]),
         Room(room_type=room_types[1]),
         Room(room_type=room_types[2]),
         Room(room_type=room_types[2]),
-        Room(room_type=room_types[2]),
-        Room(room_type=room_types[2]),
         Room(room_type=room_types[3]),
-        Room(room_type=room_types[3]),
-        Room(room_type=room_types[3]),
-        Room(room_type=room_types[3]),
+        Room(room_type=room_types[3])
     ]
 
     # add all rooms to the session
@@ -147,22 +139,17 @@ def add_rooms():
 
 
 # check if the room is available for the given dates
-# if available, add the booking to the DB
-# if not available, return a message saying the room is not available for the given dates
-
 
 def check_room_availability(check_in, check_out, room_id):
-    # check if the room is available for the given dates
     # get all bookings for the given room
     # all() returns all rows of the query result
+
     bookings = session.query(Booking).filter_by(room_id=room_id).all()
-    # check if the room is available for the given dates
+
     for booking in bookings:
-        # if the room is not available for the given dates
         # compare existing checkin and checkout dates with the new checkin and checkout dates
         if (check_in >= booking.check_in and check_in <= booking.check_out) or (check_out >= booking.check_in and check_out <= booking.check_out):
             return False
-    # if the room is available for the given dates
     return True
 
 
@@ -181,11 +168,7 @@ def calculate_total_price(check_in, check_out, room_type_id):
     return total_price
 
 
-########## API Endpoints ############
-# API to add a new customer, personal info and booking info
-# The desk officer should be able to add new customers and their personal as well as booking information. One customer can book many rooms and there can be many types of rooms (Single, Double, Deluxe, etc). The booking details should include the check-in and check-out date as well as cost and payment information.
-
-
+##################################  API Endpoints ##############################
 @app.route('/add_customer', methods=['POST'])
 def add_customer():
     # print url
@@ -197,15 +180,21 @@ def add_customer():
     phone = request.args.get('phone')
     email = request.args.get('email')
 
-    # create a new customer object
-    customer = Customer(first_name=first_name,
-                        last_name=last_name, phone=phone, email=email)
-    # add the customer to the session
-    session.add(customer)
-    # commit the changes to the DB
-    session.commit()
-    # return the customer id  with message and other personal details in JSON format
-    return jsonify({'message': 'Customer added successfully', 'customer_id': customer.customer_id, 'first_name': customer.first_name, 'last_name': customer.last_name, 'phone': customer.phone, 'email': customer.email})
+    # only insert if the customer does not exist
+    # filter_by()  is used to filter the query by a certain condition and accepts keyword arguments **kwargs
+    # identify customer by phone number
+    if not session.query(Customer).filter_by(phone=phone).first():
+        # create a new customer object and add it to the session
+        customer = Customer(first_name=first_name, last_name=last_name,
+                            phone=phone, email=email)
+        session.add(customer)
+        session.commit()
+
+        return jsonify({'message': 'Customer added successfully', 'customer_id': customer.customer_id, 'first_name': customer.first_name, 'last_name': customer.last_name, 'phone': customer.phone, 'email': customer.email})
+
+    # if the customer already exists
+    else:
+        return jsonify({'message': 'Customer already exists ', 'first_name': first_name, 'phone': phone})
 
 
 @app.route('/add_booking', methods=['POST'])
@@ -229,17 +218,11 @@ def add_booking():
     else:
         payment_done = False
 
-    # check if the room is available for the given dates
-    # if available, add the booking to the DB
-    # if not available, return a message saying the room is not available for the given dates
-
     total_sum = 0
 
     for room_no in rooms:
         # check if the room is available for the given dates
         if check_room_availability(check_in, check_out, room_no):
-            # calculate the total price of stay for the given dates
-
             # get the room type
             room_type = session.query(Room).filter_by(room_id=room_no).first()
 
@@ -260,7 +243,6 @@ def add_booking():
             # return a message saying the room is not available for the given dates
             return jsonify({'message': 'Room is not available for the given dates', 'room_id': room_no})
 
-    # return the booking id  with message in JSON format
     return jsonify({'message': 'Booked successfully', 'check_in': booking.check_in, 'check_out': booking.check_out, 'payment_done': booking.payment_done, 'total_cost for all booking': total_sum, 'customer_id': booking.customer_id, 'Room numbers': rooms})
 
 # API to get  all  unbooked rooms with their room type and price
@@ -279,32 +261,36 @@ def get_unbooked_rooms():
     bookings = session.query(Booking).all()
     # get all unbooked rooms
     unbooked_rooms = []
+
+    # check if the room is available for the given dates
     for room in rooms:
-        # check if the room is available for the given dates
-        # if available, add the room to the unbooked_rooms list
-
         if check_room_availability(check_in, check_out, room.room_id):
-            unbooked_rooms.append(room)
 
-    print('unbooked_rooms')
+            room_type = session.query(Room_type).filter_by(
+                room_type_id=room.room_type_id).first()
+            # create a dictionary for the room
+            room_dict = {'room_id': room.room_id, 'room_type': room_type.name,
+                         'price': room_type.price}
+            # append the dictionary to the list
+            unbooked_rooms.append(room_dict)
 
-    # create a list of dictionaries to store the room details
-    room_details = []
-    for room in unbooked_rooms:
-        # get the room type of the room
-        room_type = session.query(Room_type).filter_by(
-            room_type_id=room.room_type_id).first()
-        # create a dictionary to store the room details
-        room_detail = {
-            'room_id': room.room_id,
-            'type': room_type.name,
-            'price/day': room_type.price
-        }
-        # append the room details to the room_details list
-        room_details.append(room_detail)
-    print('roomdetails')
-    # return the room details in JSON format
-    return jsonify(room_details)
+    return jsonify({'unbooked_rooms': unbooked_rooms})
+
+# get whether room is available or not for the given dates
+
+
+@app.route('/check_room_availability', methods=['GET'])
+def check_room_availability_api():
+    print(request.url)
+
+    check_in = convert_date(request.args.get('check_in'))
+    check_out = convert_date(request.args.get('check_out'))
+    room_id = request.args.get('room_id')
+
+    if check_room_availability(check_in, check_out, room_id):
+        return jsonify({'message': 'Room is available', 'room_id': room_id, 'check_in': check_in, 'check_out': check_out})
+    else:
+        return jsonify({'message': 'Room is not available', 'room_id': room_id, 'check_in': check_in, 'check_out': check_out})
 
 
 # grt total price for supplied  rooms for the given dates
@@ -312,7 +298,6 @@ def get_unbooked_rooms():
 def get_total_price():
     print(request.url)
 
-    # get checkin and checkout dates from the request
     check_in = convert_date(request.args.get('check_in'))
     check_out = convert_date(request.args.get('check_out'))
     rooms = request.args.get('rooms')
@@ -321,36 +306,35 @@ def get_total_price():
     print(rooms)
     print(type(rooms))
 
-    # calculate the total price of stay for the given dates
-    total_price = 0
+    total_price_of_stay = 0   # total price of stay for multiple room id supplied
+
+    track_price = []
+
     for room_id in rooms:
 
         # Check if the room is available for the given dates
         if not check_room_availability(check_in, check_out, room_id):
-            return jsonify({'message': 'Room not available for the given dates'})
+            return jsonify({'message': 'Room not available for the given dates, Try different date', 'Room id': room_id})
 
-            # get the room type of the room
         room = session.query(Room).filter_by(room_id=room_id).first()
         # calculate the total price of stay for the given dates
-        total_price += calculate_total_price(
+        price_of_stay = calculate_total_price(
             check_in, check_out, room.room_type_id)
 
-    # return the total price , room selected , checkin and checkout dates
-    return jsonify({'total_price': total_price, 'rooms': rooms, 'check_in': check_in, 'check_out': check_out})
+        total_price_of_stay += price_of_stay
+        tract_dict = {'room_id': room_id,
+                      'price_of_stay': price_of_stay, 'Room_type': room.room_type_id}
+        track_price.append(tract_dict)
+
+    return jsonify({'total_price_of_stay': total_price_of_stay,  'rooms': track_price, 'check_in': check_in, 'check_out': check_out})
 
 
-# def add_customer():
-#     # add a new customer
-#     new_customer = Customer(first_name='John', last_name='Doe',
-#                             phone='1234567890', email='hello@gmail.com')
-#     session.add(new_customer)  # add new customer to the session
-#     session.commit()  # commit the changes to the DB
 if __name__ == '__main__':
     create_tables()
-    # add_customer() to test the add_customer() function
     add_room_types()  # add room types to the DB only if they do not exist
-    # add_rooms()
+    add_rooms()
 
     # delete_all()  # delete all records from all tables
+
     # run the Flask app in debug mode (for development only)
     app.run(debug=True)
