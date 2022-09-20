@@ -5,3 +5,5 @@ test.py
 openweather.txt
 omdb.txt
 dbsecrets.py
+orm_dbsecrets.py
+__pycache__
