@@ -21,6 +21,7 @@ Use `pip install -r requirements.txt` to install the required packages.
 | [API Assignment Flask only](https://github.com/amrit-fuse/python/tree/api_assign_flask_only) | Completed assignment using Flask only                               |
 |[ORM](https://github.com/amrit-fuse/python/tree/ORM)|Contains Datacamp Practise codes and Local database Practise code|
 |[ORM Assignment](https://github.com/amrit-fuse/python/tree/ORM_assignment)| Contains ORM assignment for  Hotel Management System|
+|[pandas](https://github.com/amrit-fuse/python/tree/pandas)| Contains Pandas practise and Pandas assignment|
 
 ## Kaggle Python Certification
 
