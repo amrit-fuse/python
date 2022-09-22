@@ -11,4 +11,6 @@ Create and activate a virtual environment:
 
 Use `pip install -r requirements.txt` to install the required packages.
 
+## [Kaggle Pandas Certification](https://www.kaggle.com/learn/pandas)
 
+![Kaggle certification for Python Amrit Prasad Phuyal](Kaggle%20Pandas%20cert.png)
