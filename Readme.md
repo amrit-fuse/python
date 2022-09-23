@@ -1,7 +1,14 @@
 
-To Navigate Refer to Readme file at [Master Branch](https://github.com/amrit-fuse/python/tree/master)
+To Navigate,refer to Readme file at [Master Branch](https://github.com/amrit-fuse/python/tree/master)
 
-This branch contains Pandas practise code and assignment  in Pandas Exercise folder. Other packaages like Numpy, Matplotlib, Seaborn are also used in this assignment.
+This branch contains Pandas practise code and assignments. Other packaages like Numpy, Matplotlib, Seaborn are also used in this 
+assignment.
+
+
+|**Name**|**Path**|
+|----|----|
+|Assignment 1|`Pyton Exercise`  Folder|
+|Assignment 3|`Assignment_3.ipynb`  file|
 
 Create and activate a virtual environment:
 
